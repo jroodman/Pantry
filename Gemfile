@@ -28,8 +28,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# Quick back-end service for deploying applications for Amazon's Echo (Alexa)
+gem 'alexa_rubykit'
 
 group :development, :test do
   gem 'pry'
