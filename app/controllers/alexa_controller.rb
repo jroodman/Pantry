@@ -3,7 +3,6 @@ class AlexaController < ApplicationController
   before_action :verify_alexa_authenticity
 
   def main
-    verify_alexa_authenticity
     requestHandler = Pantry::Handlers::AlexaRequestHandler.new params
     render json: requestHandler.process
   end
