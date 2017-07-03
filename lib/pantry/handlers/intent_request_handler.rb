@@ -4,7 +4,7 @@ module Pantry
 
     class IntentRequestHandler
 
-      def process( session: )
+      def process(session:)
 
       end
 
