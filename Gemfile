@@ -28,6 +28,11 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Workaround for fsevent issue
+gem "rb-fsevent", "0.9.8"
+
+# Gem to verify request origin from alexa_rubykit
+gem 'alexa_verifier'
 # Quick back-end service for deploying applications for Amazon's Echo (Alexa)
 gem 'alexa_rubykit'
 
