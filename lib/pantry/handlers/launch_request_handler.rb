@@ -4,7 +4,7 @@ module Pantry
 
     class LaunchRequestHandler
 
-      def process(session:)
+      def process(request:, user_id:)
         Helpers::HandlerHelper.create_response(
           message: 'What would you like to add or remove from your pantry?',
           end_session: false

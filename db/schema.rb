@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703194952) do
+ActiveRecord::Schema.define(version: 20170706200927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,10 +20,11 @@ ActiveRecord::Schema.define(version: 20170703194952) do
     t.string "category_small", null: false
     t.string "category_large", null: false
     t.integer "quantity", default: 1, null: false
-    t.datetime "expiration_date", null: false
+    t.datetime "expiration_date"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "warning_date"
     t.index ["category_large"], name: "index_items_on_category_large"
     t.index ["category_small"], name: "index_items_on_category_small"
     t.index ["expiration_date"], name: "index_items_on_expiration_date"

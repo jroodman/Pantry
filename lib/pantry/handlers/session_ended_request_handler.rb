@@ -4,7 +4,7 @@ module Pantry
 
     class SessionEndedRequestHandler
 
-      def process(session:)
+      def process(request:, user_id:)
         # Do nothing, no response to SESSION_ENDED_REQUEST
       end
 
