@@ -2,11 +2,11 @@ module Pantry
 
   module Handlers
 
-    class LaunchRequestHandler
+    class LaunchRequestHandler < RequestHandler
 
-      def process(request:, user_id:)
+      def process
         Helpers::HandlerHelper.create_response(
-          message: 'What would you like to add or remove from your pantry?',
+          message: 'What can my pantry do for you?',
           end_session: false
         )
       end

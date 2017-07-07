@@ -2,22 +2,29 @@ module Pantry
 
   module Handlers
 
-    class IntentRequestHandler
+    class IntentRequestHandler < RequestHandler
 
-      attr_reader :intent
-      def process(request:, user_id:)
-          @intent = request.intent
+      attr_reader :intent, :user_id
+      def initialize(context)
+        @intent = context.request.intent
+        @user_id = context.user_id
+      end
 
-          handler = handler_for(intent['name']).new
-          handler.process intent: intent, user_id: user_id
+      attr_reader :handler
+      def handler
+        @handler ||= handler_for(intent['name']).new(self)
+      end
+
+      def process
+        handler.process
       end
 
       private
 
       def handler_for(intent)
         {
-          'Add'        => Pantry::Handlers::TransactionIntentRequestHandler,
-          'Remove'        => Pantry::Handlers::TransactionIntentRequestHandler
+          'Add'    => Pantry::Handlers::TransactionIntentRequestHandler,
+          'Remove' => Pantry::Handlers::TransactionIntentRequestHandler
         }[intent]
       end
 

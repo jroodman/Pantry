@@ -2,11 +2,10 @@ module Pantry
 
   module Handlers
 
-    class TransactionIntentRequestHandler
+    class TransactionIntentRequestHandler < RequestHandler
 
-      def process(intent:, user_id:)
-        items = getItemsFromSlots intent['slots']
-        categorized_items = addItems items, user_id
+      def process
+        categorized_items = addItems
         Helpers::HandlerHelper.create_response(
           message: 'Items successfully added',
           end_session: true
@@ -15,6 +14,14 @@ module Pantry
 
       private
 
+      def items
+        @items ||= getItemsFromSlots
+      end
+
+      def slots
+        @slots ||= intent['slots'].to_h
+      end
+
       def getIntentSpecificMethod(intent_name)
         {
           'Add'        => method(:addItems).to_proc,
@@ -22,9 +29,8 @@ module Pantry
         }[intent_name]
       end
 
-      def addItems(items, user_id)
-        categorized_items = []
-        items.each do |k,v|
+      def addItems
+        items.map do |k,v|
           details = Helpers::CategoryHelper.categorize k
           item = Item.new(
             name: k,
@@ -42,24 +48,25 @@ module Pantry
             item[:expiration_date] = Time.now + details[:time_til_expiration].days
           end
           item.save
-          categorized_items.push item
+          item
         end
-        categorized_items
       end
 
+      # TODO, this will be implemented later
       def removeItems(items)
 
       end
 
-      def getItemsFromSlots(slots)
-        items = {}
-        slots.each do |k, v|
+      def getItemsFromSlots
+        slots.reduce(Hash.new) do |hash, (k,v)|
           if v['value'].present?
             quantity = v['value'].scan( /\d+/ ).first.to_i
-            items[v['value']] = quantity.present? ? quantity : 1
+            quantity.present? ? quantity : 1
+            hash.merge( {v['value'] => quantity} )
+          else
+            hash
           end
         end
-        items
       end
 
     end

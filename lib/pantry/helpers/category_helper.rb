@@ -47,6 +47,7 @@ module Pantry
             end
 
             if count > categories_max
+              categories_max = count
               category_name = category
             end
           end

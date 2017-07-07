@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Pantry::Helpers::HandlerHelper, type: :helper do
+RSpec.describe Pantry::Helpers::HandlerHelper do
 
-  describe "#self.create_response" do
+  describe ".create_response" do
     it "returns a correctly formatted response object" do
       response = Pantry::Helpers::HandlerHelper.create_response(
         message: 'This is a test response',
