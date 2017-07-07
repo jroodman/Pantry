@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Pantry::Helpers::CategoryHelper, type: :helper do
+RSpec.describe Pantry::Helpers::CategoryHelper do
 
-  describe "#self.categorize" do
+  describe ".categorize" do
     it "returns a hash containing category detail information based on an items name" do
       details = Pantry::Helpers::CategoryHelper.categorize('milk')
 
@@ -13,7 +13,7 @@ RSpec.describe Pantry::Helpers::CategoryHelper, type: :helper do
     end
   end
 
-  describe "#self.large_categories" do
+  describe ".large_categories" do
     it "returns a list of all of the large category types" do
       large_categories = Pantry::Helpers::CategoryHelper.large_categories
 

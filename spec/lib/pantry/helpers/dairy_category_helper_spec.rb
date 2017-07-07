@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Pantry::Helpers::DairyCategoryHelper, type: :helper do
+RSpec.describe Pantry::Helpers::DairyCategoryHelper do
 
-  describe "#self.categorize" do
+  describe ".categorize" do
     it "returns a category corresponding to an item name if one matches" do
       category_name = Pantry::Helpers::DairyCategoryHelper.categorize 'milk'
 
@@ -16,7 +16,7 @@ RSpec.describe Pantry::Helpers::DairyCategoryHelper, type: :helper do
     end
   end
 
-  describe "#self.time_til_warning" do
+  describe ".time_til_warning" do
     it "returns the amount of time in days until an item in a given category creates an expiration warning" do
       time = Pantry::Helpers::DairyCategoryHelper.time_til_warning(category: :milk)
 
@@ -24,7 +24,7 @@ RSpec.describe Pantry::Helpers::DairyCategoryHelper, type: :helper do
     end
   end
 
-  describe "#self.time_til_expiration" do
+  describe ".time_til_expiration" do
     it "returns the amount of time in days until an item in a given category expires" do
       time = Pantry::Helpers::DairyCategoryHelper.time_til_expiration(category: :milk)
 
@@ -32,21 +32,7 @@ RSpec.describe Pantry::Helpers::DairyCategoryHelper, type: :helper do
     end
   end
 
-  describe "#self.categories" do
-    it "returns all small categories corresponding to the large cateogry dairy" do
-      categories = Pantry::Helpers::DairyCategoryHelper.categories
-
-      expect(categories).to have_key(:milk)
-      expect(categories).to have_key(:cream)
-      expect(categories).to have_key(:butter)
-      expect(categories).to have_key(:margarine)
-      expect(categories).to have_key(:cheese)
-      expect(categories).to have_key(:yogurt)
-      expect(categories).to have_key(:other)
-    end
-  end
-
-  describe "#self.categories" do
+  describe ".allWords" do
     it "returns all words associated with dairy in a set" do
       allWords = Pantry::Helpers::DairyCategoryHelper.allWords
 
