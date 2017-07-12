@@ -20,14 +20,15 @@ module Pantry
 
         def large_categories
           categories = [
-              :dairy
-              # :meat,
-              # :poultry,
-              # :fruit,
-              # :vegetable,
-              # :grain,
-              # :packaged,
-              # :other
+              :dairy,
+              :meat,
+              :poultry,
+              :eggs,
+              :seafood,
+              :fruit,
+              :vegetable,
+              :grain,
+              :other
           ]
         end
 
@@ -56,14 +57,15 @@ module Pantry
 
         def helper_for(large_category)
           {
-            :dairy          => Pantry::Helpers::DairyCategoryHelper
-            # :meat           => Pantry::Helpers::MeatCategoryHelper,
-            # :poultry        => Pantry::Helpers::PoultryCategoryHelper,
-            # :fruit          => Pantry::Helpers::FruitCategoryHelper,
-            # :vegetable      => Pantry::Helpers::VegetableCategoryHelper,
-            # :grain          => Pantry::Helpers::GrainCategoryHelper,
-            # :packaged       => Pantry::Helpers::PackagedCategoryHelper,
-            # :other          => Pantry::Helpers::OtherCategoryHelper
+            :dairy          => Pantry::Helpers::DairyCategoryHelper,
+            :meat           => Pantry::Helpers::MeatCategoryHelper,
+            :poultry        => Pantry::Helpers::PoultryCategoryHelper,
+            :eggs           => Pantry::Helpers::EggCategoryHelper,
+            :seafood        => Pantry::Helpers::SeafoodCategoryHelper,
+            :fruit          => Pantry::Helpers::FruitCategoryHelper,
+            :vegetable      => Pantry::Helpers::VegetableCategoryHelper,
+            :grain          => Pantry::Helpers::GrainCategoryHelper,
+            :other          => Pantry::Helpers::OtherCategoryHelper
           }[large_category]
         end
 
