@@ -52,7 +52,7 @@ module Pantry
       class << self
 
         def fresh
-          words = Set.new([
+          Set.new([
               'fresh',
               'raw',
               'fish',
@@ -104,7 +104,7 @@ module Pantry
         end
 
         def fresh_shell
-          words = Set.new([
+          Set.new([
               'shell',
               'fish',
               'shellfish',
@@ -142,7 +142,7 @@ module Pantry
         end
 
         def crab
-          words = Set.new([
+          Set.new([
               'crab',
               'crabs',
               'king',
@@ -164,7 +164,7 @@ module Pantry
         end
 
         def lobster
-          words = Set.new([
+          Set.new([
               'lobster',
               'lobsters',
               'maine',
@@ -179,7 +179,7 @@ module Pantry
         end
 
         def shrimp
-          words = Set.new([
+          Set.new([
               'shrimp',
               'gulf',
               'peeled',
@@ -191,7 +191,7 @@ module Pantry
         end
 
         def cooked
-          words = Set.new([
+          Set.new([
               'cooked',
               'boiled',
               'bake',
@@ -202,7 +202,7 @@ module Pantry
         end
 
         def smoked
-          words = Set.new([
+          Set.new([
               'smoked',
               'cured',
               'lox',
@@ -212,7 +212,7 @@ module Pantry
         end
 
         def canned
-          words = Set.new([
+          Set.new([
             'can',
             'cans',
             'canned'
@@ -220,7 +220,7 @@ module Pantry
         end
 
         def dried
-          words = Set.new([
+          Set.new([
             'dry',
             'dried',
             'pickled',

@@ -23,14 +23,14 @@ module Pantry
           self::CATEGORIES[category][:expiring]
         end
 
-        def allWords
+        def all_words
           self::CATEGORIES.reduce(Set.new) do |set, (k,v)|
             set.merge method(k).to_proc.call
           end
         end
 
         def other
-          words = Set.new([])
+          Set.new([])
         end
 
       end

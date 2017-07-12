@@ -40,7 +40,7 @@ module Pantry
       class << self
 
         def asparagus
-          words = Set.new([
+          Set.new([
             'asparagus',
             'garden',
             'shoot',
@@ -49,7 +49,7 @@ module Pantry
         end
 
         def corn
-          words = Set.new([
+          Set.new([
             'corn',
             'husk',
             'maize',
@@ -59,7 +59,7 @@ module Pantry
         end
 
         def short_period
-          words = Set.new([
+          Set.new([
             'broccoli',
             'broccolini',
             'stalk',
@@ -112,7 +112,7 @@ module Pantry
         end
 
         def medium_period
-          words = Set.new([
+          Set.new([
             'cabbage',
             'cauliflower',
             'celery',
@@ -135,7 +135,7 @@ module Pantry
         end
 
         def long_period
-          words = Set.new([
+          Set.new([
             'carrot',
             'carrots',
             'beet',
@@ -168,7 +168,7 @@ module Pantry
         end
 
         def canned
-          words = Set.new([
+          Set.new([
             'can',
             'cans',
             'canned',

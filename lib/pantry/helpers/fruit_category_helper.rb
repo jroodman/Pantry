@@ -60,7 +60,7 @@ module Pantry
       class << self
 
         def fresh
-          words = Set.new([
+          Set.new([
             'fruit',
             'fruits',
             'mango',
@@ -121,7 +121,7 @@ module Pantry
         end
 
         def apples
-          words = Set.new([
+          Set.new([
             'apple',
             'apples',
             'lady',
@@ -140,7 +140,7 @@ module Pantry
         end
 
         def citrus
-          words = Set.new([
+          Set.new([
             'citrus',
             'orange',
             'oranges',
@@ -164,7 +164,7 @@ module Pantry
         end
 
         def grapes
-          words = Set.new([
+          Set.new([
             'grape',
             'grapes',
             'concord',
@@ -180,7 +180,7 @@ module Pantry
         end
 
         def melons
-          words = Set.new([
+          Set.new([
             'melon',
             'melons',
             'watermelon',
@@ -200,7 +200,7 @@ module Pantry
         end
 
         def peaches
-          words = Set.new([
+          Set.new([
             'peach',
             'peaches',
             'nectarine',
@@ -209,7 +209,7 @@ module Pantry
         end
 
         def pears
-          words = Set.new([
+          Set.new([
             'pear',
             'pears',
             'anjou',
@@ -219,14 +219,14 @@ module Pantry
         end
 
         def pineapple
-          words = Set.new([
+          Set.new([
             'pineapple',
             'pineapples'
           ])
         end
 
         def canned
-          words = Set.new([
+          Set.new([
             'can',
             'cans',
             'canned'
@@ -234,7 +234,7 @@ module Pantry
         end
 
         def dried
-          words = Set.new([
+          Set.new([
             'dry',
             'dried',
             'sun',
@@ -246,7 +246,7 @@ module Pantry
         end
 
         def juice
-          words = Set.new([
+          Set.new([
             'juice',
             'squeezed',
             'minute',

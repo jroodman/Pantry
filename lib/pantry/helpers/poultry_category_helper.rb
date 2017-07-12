@@ -24,7 +24,7 @@ module Pantry
       class << self
 
         def fresh
-          words = Set.new([
+          Set.new([
             'fresh',
             'poultry',
             'chicken',
@@ -60,7 +60,7 @@ module Pantry
         end
 
         def cooked
-          words = Set.new([
+          Set.new([
             'cooked',
             'roast',
             'roasted',

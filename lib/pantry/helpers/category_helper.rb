@@ -19,7 +19,7 @@ module Pantry
         end
 
         def large_categories
-          categories = [
+          [
               :dairy,
               :meat,
               :poultry,
@@ -38,7 +38,7 @@ module Pantry
           categories_max = 0
           category_name = ''
           large_categories.each do |category|
-            set = helper_for(category).allWords
+            set = helper_for(category).all_words
 
             count = 0
             item_name.split(' ').each do |word|
@@ -56,17 +56,7 @@ module Pantry
         end
 
         def helper_for(large_category)
-          {
-            :dairy          => Pantry::Helpers::DairyCategoryHelper,
-            :meat           => Pantry::Helpers::MeatCategoryHelper,
-            :poultry        => Pantry::Helpers::PoultryCategoryHelper,
-            :eggs           => Pantry::Helpers::EggCategoryHelper,
-            :seafood        => Pantry::Helpers::SeafoodCategoryHelper,
-            :fruit          => Pantry::Helpers::FruitCategoryHelper,
-            :vegetable      => Pantry::Helpers::VegetableCategoryHelper,
-            :grain          => Pantry::Helpers::GrainCategoryHelper,
-            :other          => Pantry::Helpers::OtherCategoryHelper
-          }[large_category]
+          "Pantry::Helpers::#{large_category.to_s.classify}CategoryHelper".constantize
         end
 
       end

@@ -36,7 +36,7 @@ module Pantry
       class << self
 
         def flour
-          words = Set.new([
+          Set.new([
             'flour',
             'all',
             'purpose',
@@ -53,7 +53,7 @@ module Pantry
         end
 
         def white_rice
-          words = Set.new([
+          Set.new([
             'white',
             'rice',
             'long',
@@ -78,7 +78,7 @@ module Pantry
         end
 
         def brown_rice
-          words = Set.new([
+          Set.new([
             'brown',
             'rice',
             'long',
@@ -113,7 +113,7 @@ module Pantry
         end
 
         def pasta
-          words = Set.new([
+          Set.new([
             'pasta',
             'macaroni',
             'canneloni',
@@ -178,7 +178,7 @@ module Pantry
         end
 
         def cereals
-          words = Set.new([
+          Set.new([
             'granola',
             'granolas',
             'oat',

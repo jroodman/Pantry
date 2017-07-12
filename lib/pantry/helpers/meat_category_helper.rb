@@ -52,7 +52,7 @@ module Pantry
       class << self
 
         def fresh_cut
-          words = Set.new([
+          Set.new([
             'cut',
             'prime',
             'rib',
@@ -89,7 +89,7 @@ module Pantry
         end
 
         def fresh_variety
-          words = Set.new([
+          Set.new([
             'duck',
             'heart',
             'kidney',
@@ -110,7 +110,7 @@ module Pantry
         end
 
         def venison
-          words = Set.new([
+          Set.new([
             'venison',
             'deer',
             'buck',
@@ -123,7 +123,7 @@ module Pantry
         end
 
         def ground
-          words = Set.new([
+          Set.new([
             'chopped',
             'ground',
             'minced',
@@ -134,7 +134,7 @@ module Pantry
         end
 
         def lunch
-          words = Set.new([
+          Set.new([
             'lunch',
             'deli',
             'cold',
@@ -156,7 +156,7 @@ module Pantry
         end
 
         def hotdog
-          words = Set.new([
+          Set.new([
             'hotdog',
             'hotdogs',
             'frank',
@@ -191,7 +191,7 @@ module Pantry
         end
 
         def bacon
-          words = Set.new([
+          Set.new([
             'bacon',
             'pancetta',
             'canadian',
@@ -200,7 +200,7 @@ module Pantry
         end
 
         def hard_sausage
-          words = Set.new([
+          Set.new([
             'hard',
             'sausage',
             'dry',
@@ -217,7 +217,7 @@ module Pantry
         end
 
         def canned
-          words = Set.new([
+          Set.new([
             'can',
             'cans',
             'canned'

@@ -34,7 +34,7 @@ RSpec.describe Pantry::Helpers::DairyCategoryHelper do
 
   describe ".allWords" do
     it "returns all words associated with dairy in a set" do
-      allWords = Pantry::Helpers::DairyCategoryHelper.allWords
+      allWords = Pantry::Helpers::DairyCategoryHelper.all_words
 
       expect(allWords).to include('1-percent')
       expect(allWords).to include('whipping')

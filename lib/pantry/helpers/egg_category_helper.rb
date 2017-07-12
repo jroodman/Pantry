@@ -36,7 +36,7 @@ module Pantry
       class << self
 
         def fresh
-          words = Set.new([
+          Set.new([
             'fresh',
             'raw',
             'egg',
@@ -60,7 +60,7 @@ module Pantry
         end
 
         def fresh_separated
-          words = Set.new([
+          Set.new([
             'yolk',
             'yolks',
             'white',
@@ -72,7 +72,7 @@ module Pantry
         end
 
         def hardboiled
-          words = Set.new([
+          Set.new([
             'hard',
             'hardcooked',
             'hard-cooked',
@@ -86,7 +86,7 @@ module Pantry
         end
 
         def substitutes
-          words = Set.new([
+          Set.new([
               'substitute',
               'vegetarian',
               'vegan',
@@ -96,7 +96,7 @@ module Pantry
         end
 
         def egg_containing
-          words = Set.new([
+          Set.new([
               'containing',
               'custard',
               'pudding',

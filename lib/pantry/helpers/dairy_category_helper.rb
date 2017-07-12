@@ -40,7 +40,7 @@ module Pantry
       class << self
 
         def milk
-          words = Set.new([
+          Set.new([
             'milk',
             'half-and-half',
             'skim',
@@ -53,7 +53,7 @@ module Pantry
         end
 
         def cream
-          words = Set.new([
+          Set.new([
             'cream',
             'heavy',
             'sour',
@@ -67,7 +67,7 @@ module Pantry
         end
 
         def butter
-          words = Set.new([
+          Set.new([
             'butter',
             'unsalted',
             'salted'
@@ -75,14 +75,14 @@ module Pantry
         end
 
         def margarine
-          words = Set.new([
+          Set.new([
             'margarine',
             'smart balance'
           ])
         end
 
         def cheese
-          words = Set.new([
+          Set.new([
             'cheese',
             'queso',
             'string',
@@ -110,7 +110,7 @@ module Pantry
         end
 
         def yogurt
-          words = Set.new([
+          Set.new([
             'yogurt',
             'greek',
             'eros',
