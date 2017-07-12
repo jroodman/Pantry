@@ -4,7 +4,7 @@ module Pantry
 
   module Helpers
 
-    class DairyCategoryHelper
+    class DairyCategoryHelper < SubcategoryHelper
 
       CATEGORIES = {
         milk: {
@@ -39,32 +39,8 @@ module Pantry
 
       class << self
 
-        def categorize(item_name)
-          CATEGORIES.reduce({ name: :other, value: 0 }) do |max, (k,v)|
-            word_set = method(k).to_proc.call
-            count = (item_name.split(' ').to_set & word_set).length
-            count > max[:value] ? {name: k, value: count} : max
-          end[:name]
-        end
-
-        def time_til_warning(category:)
-          CATEGORIES[category][:warning]
-        end
-
-        def time_til_expiration(category:)
-          CATEGORIES[category][:expiring]
-        end
-
-        def allWords
-          CATEGORIES.reduce(Set.new) do |set, (k,v)|
-            set.merge method(k).to_proc.call
-          end
-        end
-
-        private
-
         def milk
-          products = Set.new([
+          Set.new([
             'milk',
             'half-and-half',
             'skim',
@@ -77,39 +53,39 @@ module Pantry
         end
 
         def cream
-          words = Set.new([
+          Set.new([
             'cream',
-            'heavy cream',
-            'sour cream',
+            'heavy',
+            'sour',
             'half-and-half',
             'whipping',
             'clotted',
-            'creme fraiche',
-            'cream cheese'
+            'creme',
+            'fraiche',
+            'cheese'
           ])
         end
 
         def butter
-          words = Set.new([
+          Set.new([
             'butter',
-            'unsalted butter',
-            'salted butter'
+            'unsalted',
+            'salted'
           ])
         end
 
         def margarine
-          words = Set.new([
+          Set.new([
             'margarine',
-            'smart balance',
-            "I can't believe it's not butter"
+            'smart balance'
           ])
         end
 
         def cheese
-          words = Set.new([
+          Set.new([
             'cheese',
             'queso',
-            'string cheese',
+            'string',
             'american',
             'swiss',
             'ricotta',
@@ -128,26 +104,23 @@ module Pantry
             'cheddar',
             'colby',
             'brie',
-            'blue cheese',
+            'blue',
             'manchego'
           ])
         end
 
         def yogurt
-          words = Set.new([
+          Set.new([
             'yogurt',
-            'greek yogurt',
+            'greek',
             'eros',
             'chobani',
             'yoplait'
           ])
         end
 
-        def other
-          words = Set.new([])
-        end
-
       end
+
     end
 
   end
