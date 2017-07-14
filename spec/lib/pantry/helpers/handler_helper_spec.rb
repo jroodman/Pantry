@@ -12,6 +12,7 @@ RSpec.describe Pantry::Helpers::HandlerHelper do
           content: 'Content!'
         },
         session_attributes: { session_attribute_key: :session_attribute_value },
+        reprompt: 'Sample reprompt'
         end_session: false
       )
 
@@ -21,6 +22,7 @@ RSpec.describe Pantry::Helpers::HandlerHelper do
       expect(JSON.parse(response)['response']['card']['type']).to eq 'Simple'
       expect(JSON.parse(response)['response']['card']['title']).to eq 'Title'
       expect(JSON.parse(response)['response']['card']['content']).to eq 'Content!'
+      expect(JSON.parse(response)['response']['reprompt']['outputSpeech']['text']).to eq 'Sample reprompt'
     end
   end
 
