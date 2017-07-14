@@ -11,7 +11,7 @@ module Pantry
           response.add_session_attribute k, v
         end
         if card.present?
-          response.add_hash_card({ type: card['type'], title: card['title'], content: card['content'] })
+          response.add_hash_card({ type: card[:type], title: card[:title], content: card[:content] })
         end
         response.build_response(end_session)
       end
