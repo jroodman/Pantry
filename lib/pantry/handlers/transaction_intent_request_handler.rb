@@ -5,32 +5,28 @@ module Pantry
     class TransactionIntentRequestHandler < RequestHandler
 
       def process
-        categorized_items = addItems
-        Helpers::HandlerHelper.create_response(
-          message: 'Items successfully added',
-          end_session: true
-        )
+        get_intent_specific_method(intent['name']).call
       end
 
       private
 
       def items
-        @items ||= getItemsFromSlots
+        @items ||= get_items_from_slots
       end
 
       def slots
         @slots ||= intent['slots'].to_h
       end
 
-      def getIntentSpecificMethod(intent_name)
+      def get_intent_specific_method(intent_name)
         {
-          'Add'        => method(:addItems).to_proc,
-          'Remove'     => method(:removeItems).to_proc,
+          'Add'        => method(:add_items).to_proc,
+          'Remove'     => method(:remove_items).to_proc,
         }[intent_name]
       end
 
-      def addItems
-        items.map do |k,v|
+      def add_items
+        categorized_items = items.map do |k,v|
           details = Helpers::CategoryHelper.categorize k
           item = Item.new(
             name: k,
@@ -50,14 +46,23 @@ module Pantry
           item.save
           item
         end
+        Helpers::HandlerHelper.create_response(
+          message: 'Items successfully added',
+          card: {
+            type: 'Simple',
+            title: 'Added Items',
+            content: Helpers::HandlerHelper.prepare_items_for_card_without_date(categorized_items)
+          },
+          end_session: true
+        )
       end
 
       # TODO, this will be implemented later
-      def removeItems(items)
+      def remove_items
 
       end
 
-      def getItemsFromSlots
+      def get_items_from_slots
         slots.reduce(Hash.new) do |hash, (k,v)|
           if v['value'].present?
             quantity = v['value'].scan( /\d+/ ).first.to_i
