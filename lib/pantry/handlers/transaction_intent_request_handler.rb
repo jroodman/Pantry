@@ -25,7 +25,7 @@ module Pantry
       def getIntentSpecificMethod(intent_name)
         {
           'Add'        => method(:addItems).to_proc,
-          'Remove'        => method(:removeItems).to_proc,
+          'Remove'     => method(:removeItems).to_proc,
         }[intent_name]
       end
 
@@ -62,7 +62,8 @@ module Pantry
           if v['value'].present?
             quantity = v['value'].scan( /\d+/ ).first.to_i
             quantity.present? ? quantity : 1
-            hash.merge( {v['value'] => quantity} )
+            value = v['value'].sub(/\d+/, '').squeeze(' ').strip
+            hash.merge( {value => quantity} )
           else
             hash
           end

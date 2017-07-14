@@ -12,7 +12,7 @@ module Pantry
 
       def process
         handler = handler_for(request.type).new(self)
-        handler.process 
+        handler.process
       end
 
       private

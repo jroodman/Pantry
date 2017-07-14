@@ -2,6 +2,8 @@ class AlexaController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :verify_alexa_authenticity
 
+  rescue_from Pantry::Alexa::VerificationError, with: :render_malformed_request_response
+
   def main
     requestHandler = Pantry::Alexa::RequestHandler.new params.permit!
     render json: requestHandler.process
@@ -10,12 +12,12 @@ class AlexaController < ApplicationController
   private
 
   def verify_alexa_authenticity
-    verifier = AlexaVerifier.new
-    verifier.verify!(
-      request.headers['SignatureCertChainUrl'],
-      request.headers['Signature'],
-      request.body.read
-    )
+    verifier = Pantry::Alexa::RequestVerifier.new request
+    verifier.verify
+  end
+
+  def render_malformed_request_response
+    head 400
   end
 
 end

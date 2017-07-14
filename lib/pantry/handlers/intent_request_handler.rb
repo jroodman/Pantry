@@ -24,7 +24,9 @@ module Pantry
       def handler_for(intent)
         {
           'Add'    => Pantry::Handlers::TransactionIntentRequestHandler,
-          'Remove' => Pantry::Handlers::TransactionIntentRequestHandler
+          'Remove' => Pantry::Handlers::TransactionIntentRequestHandler,
+          'Warning' => Pantry::Handlers::ListIntentRequestHandler,
+          'Expired' => Pantry::Handlers::ListIntentRequestHandler
         }[intent]
       end
 
