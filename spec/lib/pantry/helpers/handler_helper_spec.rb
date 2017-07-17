@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Pantry::Helpers::HandlerHelper do
+RSpec.describe Helpers::HandlerHelper do
 
   describe ".create_response" do
     it "returns a correctly formatted response object" do
-      response = Pantry::Helpers::HandlerHelper.create_response(
+      response = Helpers::HandlerHelper.create_response(
         message: 'This is a test response',
         card: {
           type: 'Simple',
@@ -48,21 +48,21 @@ RSpec.describe Pantry::Helpers::HandlerHelper do
 
   describe ".prepare_items_for_message" do
     it "returns a correctly formatted string" do
-      message = Pantry::Helpers::HandlerHelper.prepare_items_for_message items
+      message = Helpers::HandlerHelper.prepare_items_for_message items
       expect(message).to eq '1 Item1 and 2 Item2'
     end
   end
 
   describe ".prepare_items_for_card_with_date" do
     it "returns a correctly formatted string" do
-      message = Pantry::Helpers::HandlerHelper.prepare_items_for_card_with_date items
+      message = Helpers::HandlerHelper.prepare_items_for_card_with_date items
       expect(message).to eq "1 Item1 purchased on Mon, July 17\n2 Item2 purchased on Mon, July 17"
     end
   end
 
   describe ".prepare_items_for_card_without_date" do
     it "returns a correctly formatted string" do
-      message = Pantry::Helpers::HandlerHelper.prepare_items_for_card_without_date items
+      message = Helpers::HandlerHelper.prepare_items_for_card_without_date items
       expect(message).to eq "1 Item1\n2 Item2"
     end
   end

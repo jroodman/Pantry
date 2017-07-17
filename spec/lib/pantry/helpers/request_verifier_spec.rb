@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Pantry::Alexa::RequestVerifier do
+RSpec.describe Alexa::RequestVerifier do
 
 
   describe ".verify" do
@@ -139,7 +139,7 @@ RSpec.describe Pantry::Alexa::RequestVerifier do
         end
 
         it "returns true for a correctly formatted Alexa Request" do
-          verifier = Pantry::Alexa::RequestVerifier.new(request)
+          verifier = Alexa::RequestVerifier.new(request)
           expect(verifier.verify).to eql nil
         end
 
@@ -193,8 +193,8 @@ RSpec.describe Pantry::Alexa::RequestVerifier do
         end
 
         it "returns true for a correctly formatted Alexa Request" do
-          verifier = Pantry::Alexa::RequestVerifier.new(request)
-          expect{verifier.verify}.to raise_error Pantry::Alexa::VerificationError
+          verifier = Alexa::RequestVerifier.new(request)
+          expect{verifier.verify}.to raise_error Alexa::VerificationError
         end
 
       end
@@ -264,8 +264,8 @@ RSpec.describe Pantry::Alexa::RequestVerifier do
         end
 
         it "returns false for a correctly formatted Alexa Request" do
-          verifier = Pantry::Alexa::RequestVerifier.new(request)
-          expect{verifier.verify}.to raise_error Pantry::Alexa::VerificationError
+          verifier = Alexa::RequestVerifier.new(request)
+          expect{verifier.verify}.to raise_error Alexa::VerificationError
         end
 
       end
@@ -286,8 +286,8 @@ RSpec.describe Pantry::Alexa::RequestVerifier do
         end
 
         it "returns false for a correctly formatted Alexa Request" do
-          verifier = Pantry::Alexa::RequestVerifier.new(request)
-          expect{verifier.verify}.to raise_error Pantry::Alexa::VerificationError
+          verifier = Alexa::RequestVerifier.new(request)
+          expect{verifier.verify}.to raise_error Alexa::VerificationError
         end
 
       end
