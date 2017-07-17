@@ -5,7 +5,7 @@ module Pantry
     class ListIntentRequestHandler < RequestHandler
 
       def process
-        send(get_intent_specific_method(intent['name']).call)
+        send(get_intent_specific_method(intent['name']))
       end
 
       private
@@ -42,8 +42,8 @@ module Pantry
       end
 
       def list_all_items
-        items = Pantry::Helpers::CategoryHelper.large_categories.map do |category|
-          prepare_item_list_by_category category
+        items = Pantry::Helpers::CategoryHelper.large_categories.reduce([]) do |array, category|
+          array += prepare_item_list_by_category category
         end
         Helpers::HandlerHelper.create_response(
           message: message_for_all_items(items),
@@ -86,7 +86,7 @@ module Pantry
         items = Item.owned_by(user_id).in_category(category)
       end
 
-      def message_for_list_items_from_category(items category)
+      def message_for_list_items_from_category(items, category)
         items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
         if items_for_message.blank?
           "You have no items under the category #{category.to_s}"

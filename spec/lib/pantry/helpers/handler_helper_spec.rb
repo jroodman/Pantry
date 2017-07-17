@@ -26,4 +26,23 @@ RSpec.describe Pantry::Helpers::HandlerHelper do
     end
   end
 
+  describe ".prepare_items_for_message" do
+    it "returns a correctly formatted string" do
+
+    end
+  end
+
+  describe ".prepare_items_for_card_with_date" do
+    it "returns a correctly formatted string" do
+
+    end
+  end
+
+  describe ".prepare_items_for_card_without_date" do
+    it "returns a correctly formatted string" do
+
+    end
+  end
+
+
 end
