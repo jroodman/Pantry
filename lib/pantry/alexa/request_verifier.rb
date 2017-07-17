@@ -31,7 +31,7 @@ module Pantry
       private
 
       def verify_timestamp
-        if !json_body['request']['timestamp'].present?
+        if json_body['request']['timestamp'].nil?
           raise VerificationError.new
         end
 
@@ -66,7 +66,7 @@ module Pantry
         response = http.request(Net::HTTP::Get.new(uri.request_uri))
         http.finish
         if response.code.to_i != 200
-          raise VerificationError.new
+          raise VerificationError
         end
         certificate = OpenSSL::X509::Certificate.new response.body
         if !certificate.public_key.verify(OpenSSL::Digest::SHA1.new, Base64.decode64(signature), request_body)

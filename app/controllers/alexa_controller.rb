@@ -12,8 +12,7 @@ class AlexaController < ApplicationController
   private
 
   def verify_alexa_authenticity
-    verifier = Pantry::Alexa::RequestVerifier.new request
-    verifier.verify
+    Pantry::Alexa::RequestVerifier.new(request).verify
   end
 
   def render_malformed_request_response

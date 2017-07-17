@@ -12,7 +12,7 @@ RSpec.describe Pantry::Helpers::HandlerHelper do
           content: 'Content!'
         },
         session_attributes: { session_attribute_key: :session_attribute_value },
-        reprompt: 'Sample reprompt'
+        reprompt: 'Sample reprompt',
         end_session: false
       )
 
