@@ -5,17 +5,17 @@ module Pantry
     class ListIntentRequestHandler < RequestHandler
 
       def process
-        get_intent_specific_method(intent['name']).call
+        send(get_intent_specific_method(intent['name']).call)
       end
 
       private
 
       def get_intent_specific_method(intent_name)
         {
-          'Warning'       => method(:list_warning_items).to_proc,
-          'Expired'       => method(:list_expired_items).to_proc,
-          'FromCategory'  => method(:list_items_from_category).to_proc,
-          'AllItems'      => method(:list_all_items).to_proc
+          'Warning'       => :list_warning_items,
+          'Expired'       => :list_expired_items,
+          'FromCategory'  => :list_items_from_category,
+          'AllItems'      => :list_all_items
         }[intent_name]
       end
 
@@ -23,9 +23,8 @@ module Pantry
         category = intent['slots']['category']['value'].downcase.to_sym
         if Pantry::Helpers::CategoryHelper.large_categories.include? category
           items = prepare_item_list_by_category category
-          message = Helpers::HandlerHelper.prepare_items_for_message(items).blank? ? "You have no items under the category #{category.to_s}" : "You have #{prepare_items_for_message(items)} in the category #{category.to_s}"
-          response = Helpers::HandlerHelper.create_response(
-            message: message,
+          Helpers::HandlerHelper.create_response(
+            message: message_for_list_items_from_category(items, category),
             card: {
               type: 'Simple',
               title: "Items in your category #{category.to_s}",
@@ -43,12 +42,11 @@ module Pantry
       end
 
       def list_all_items
-        items = Pantry::Helpers::CategoryHelper.large_categories.reduce([]) do |array, category|
-          array += prepare_item_list_by_category category
+        items = Pantry::Helpers::CategoryHelper.large_categories.map do |category|
+          prepare_item_list_by_category category
         end
-        message = Helpers::HandlerHelper.prepare_items_for_message(items).blank? ? 'You have no items in your Pantry' : "You have #{prepare_items_for_message(items)} in your pantry"
         Helpers::HandlerHelper.create_response(
-          message: message,
+          message: message_for_all_items(items),
           card: {
             type: 'Simple',
             title: 'Items in your Pantry',
@@ -59,10 +57,9 @@ module Pantry
       end
 
       def list_warning_items
-        items = Item.where "(items.user_id = :user_id) AND (items.expiration_date >= :time) AND (items.warning_date <= :time)", user_id: user_id, time: Time.now
-        message = Helpers::HandlerHelper.prepare_items_for_message(items).blank? ? 'Nothing is expiring soon' : "#{prepare_items_for_message(items)} are expiring soon"
+        items = Item.owned_by(user_id).before_expiration.after_warning
         Helpers::HandlerHelper.create_response(
-          message: message,
+          message: message_for_list_warning_items(items),
           card: {
             type: 'Simple',
             title: 'Food Expiring Soon',
@@ -73,10 +70,9 @@ module Pantry
       end
 
       def list_expired_items
-        items = Item.where "(items.user_id = :user_id) AND (items.expiration_date <= :time)", user_id: user_id, time: Time.now
-        message = Helpers::HandlerHelper.prepare_items_for_message(items).blank? ? 'Nothing is expired' : "#{prepare_items_for_message(items)} are expired"
+        items = Item.owned_by(user_id).after_expiration
         Helpers::HandlerHelper.create_response(
-          message: message,
+          message: message_for_list_expired_items(items),
           card: {
             type: 'Simple',
             title: 'Expired Food',
@@ -87,7 +83,43 @@ module Pantry
       end
 
       def prepare_item_list_by_category(category)
-        items = Item.where "(items.user_id = :user_id) AND (items.category_large = :category)", user_id: user_id, category: category
+        items = Item.owned_by(user_id).in_category(category)
+      end
+
+      def message_for_list_items_from_category(items category)
+        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
+        if items_for_message.blank?
+          "You have no items under the category #{category.to_s}"
+        else
+          "You have #{items_for_message} in the category #{category.to_s}"
+        end
+      end
+
+      def message_for_all_items(items)
+        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
+        if items_for_message.blank?
+          'You have no items in your Pantry'
+        else
+          "You have #{items_for_message} in your pantry"
+        end
+      end
+
+      def message_for_list_warning_items(items)
+        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
+        if items_for_message.blank?
+          'Nothing is expiring soon'
+        else
+          "#{items_for_message} are expiring soon"
+        end
+      end
+
+      def message_for_list_expired_items(items)
+        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
+        if items_for_message.blank?
+          'Nothing is expired'
+        else
+          "#{items_for_message} are expired"
+        end
       end
 
     end

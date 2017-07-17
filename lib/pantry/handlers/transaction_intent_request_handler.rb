@@ -5,7 +5,7 @@ module Pantry
     class TransactionIntentRequestHandler < RequestHandler
 
       def process
-        get_intent_specific_method(intent['name']).call
+        send(get_intent_specific_method(intent['name']))
       end
 
       private
@@ -20,8 +20,8 @@ module Pantry
 
       def get_intent_specific_method(intent_name)
         {
-          'Add'        => method(:add_items).to_proc,
-          'Remove'     => method(:remove_items).to_proc,
+          'Add'        => :add_items,
+          'Remove'     => :remove_items,
         }[intent_name]
       end
 
@@ -68,7 +68,7 @@ module Pantry
             quantity = v['value'].scan( /\d+/ ).first.to_i
             quantity.present? ? quantity : 1
             value = v['value'].sub(/\d+/, '').squeeze(' ').strip
-            hash.merge( {value => quantity} )
+            hash.merge(value => quantity)
           else
             hash
           end

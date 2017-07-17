@@ -21,21 +21,21 @@ module Pantry
         end
 
         def prepare_items_for_message(items)
-          items.each do |item|
+          items.map do |item|
             "#{item.quantity} #{item.name}"
           end.to_sentence
         end
 
         def prepare_items_for_card_with_date(items)
-          list = items.reduce([]) do |array, item|
-            array << "#{item.quantity} #{item.name} purchased on #{item.created_at.strftime("%a, %B %d")}"
+          list = items.map do |item|
+            "#{item.quantity} #{item.name} purchased on #{item.created_at.strftime("%a, %B %d")}"
           end
           list.join("\n")
         end
 
         def prepare_items_for_card_without_date(items)
-          list = items.reduce([]) do |array, item|
-            array << "#{item.quantity} #{item.name}"
+          list = items.map do |item|
+            "#{item.quantity} #{item.name}"
           end
           list.join("\n")
         end
