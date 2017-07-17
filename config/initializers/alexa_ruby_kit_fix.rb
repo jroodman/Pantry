@@ -6,4 +6,5 @@ module AlexaRubykit
       !request_json['session'].nil? &&
       !request_json['request'].nil?
   end
+
 end
