@@ -26,7 +26,8 @@ module Handlers
         'Warning'       => Handlers::ListIntentRequestHandler,
         'Expired'       => Handlers::ListIntentRequestHandler,
         'FromCategory'  => Handlers::ListIntentRequestHandler,
-        'AllItems'      => Handlers::ListIntentRequestHandler
+        'AllItems'      => Handlers::ListIntentRequestHandler,
+        'GetExpiration' => Handlers::InformationIntentRequestHandler
       }[intent]
     end
 
