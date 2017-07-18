@@ -56,7 +56,7 @@ RSpec.describe Helpers::HandlerHelper do
   describe ".prepare_items_for_card_with_date" do
     it "returns a correctly formatted string" do
       message = Helpers::HandlerHelper.prepare_items_for_card_with_date items
-      expect(message).to eq "1 Item1 purchased on Mon, July 17\n2 Item2 purchased on Mon, July 17"
+      expect(message).to eq "1 Item1 added on Mon, July 17\n2 Item2 added on Mon, July 17"
     end
   end
 

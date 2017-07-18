@@ -55,9 +55,31 @@ module Handlers
       )
     end
 
-    # TODO, this will be implemented later
     def remove_items
-
+      removed_items = items.map do |k,v|
+        item = Item.owned_by(user_id).where(name: k).order(:created_at).first
+        item_meta = {name: k, quantity: v}
+        while item.present? && v > 0 do
+          v -= item.quantity
+          item.quantity = (item.quantity - v >= 0) ? item.quantity - v : 0
+          if item.quantity == 0
+            item.destroy
+            item = Item.owned_by(user_id).where(name: k).order(:created_at).first
+          end
+        end
+        item_meta[:quantity] -= v if v.positive?
+        item.save if item.present?
+        item_meta
+      end
+      Helpers::HandlerHelper.create_response(
+        message: "#{Helpers::HandlerHelper.prepare_removed_items_for_message(removed_items)} were removed",
+        card: {
+          type: 'Simple',
+          title: 'Removed Items',
+          content: Helpers::HandlerHelper.prepare_removed_items_for_card(removed_items)
+        },
+        end_session: true
+      )
     end
 
     def get_items_from_slots
