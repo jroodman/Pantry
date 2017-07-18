@@ -39,7 +39,7 @@ module Alexa
         time = Time.at time_from_request
       end
 
-      if (Time.now - TIMESTAMP_TOLERANCE) >= Time.at(json_body['request']['timestamp'])
+      if Time.now - TIMESTAMP_TOLERANCE >= time
         raise VerificationError.new
       end
     end
