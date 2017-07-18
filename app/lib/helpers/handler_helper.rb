@@ -26,16 +26,29 @@ module Helpers
 
       def prepare_items_for_card_with_date(items)
         list = items.map do |item|
-          "#{item.quantity} #{item.name} purchased on #{item.created_at.strftime("%a, %B %d")}"
+          "#{item.quantity} #{item.name} added on #{item.created_at.strftime("%a, %B %d")}"
         end
-        list.join("\n")
+        list.empty? ? 'No items' : list.join("\n")
       end
 
       def prepare_items_for_card_without_date(items)
         list = items.map do |item|
           "#{item.quantity} #{item.name}"
         end
-        list.join("\n")
+        list.empty? ? 'No items' : list.join("\n")
+      end
+
+      def prepare_removed_items_for_card(items)
+        list = items.map do |item|
+          item[:quantity].zero? ? "#{item[:name]} not found, 0 removed" : "#{item[:quantity]} #{item[:name]}"
+        end
+        list.empty? ? 'No items' : list.join("\n")
+      end
+
+      def prepare_removed_items_for_message(items)
+        items.map do |item|
+          "#{item[:quantity]} #{item[:name]}"
+        end.to_sentence
       end
 
     end

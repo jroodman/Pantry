@@ -28,7 +28,7 @@ module Handlers
             title: "Items in your category #{category.to_s}",
             content: Helpers::HandlerHelper.prepare_items_for_card_with_date(items)
           },
-          end_session: true
+          end_session: false
         )
       else
         Helpers::HandlerHelper.create_response(
@@ -50,7 +50,7 @@ module Handlers
           title: 'Items in your Pantry',
           content: Helpers::HandlerHelper.prepare_items_for_card_with_date(items)
         },
-        end_session: true
+        end_session: false
       )
     end
 
@@ -63,7 +63,7 @@ module Handlers
           title: 'Food Expiring Soon',
           content: Helpers::HandlerHelper.prepare_items_for_card_with_date(items)
         },
-        end_session: true
+        end_session: false
       )
     end
 
@@ -76,7 +76,7 @@ module Handlers
           title: 'Expired Food',
           content: Helpers::HandlerHelper.prepare_items_for_card_with_date(items)
         },
-        end_session: true
+        end_session: false
       )
     end
 
