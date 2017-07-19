@@ -50,7 +50,7 @@ module Handlers
     end
 
     def added_items
-      items.reject{ |k,v| v <= 0 }.map do |k,v|
+      categorized_items = items.reject{ |k,v| v <= 0 }.map do |k,v|
         details = Helpers::CategoryHelper.categorize k
         item = Item.new(
           name: k,
