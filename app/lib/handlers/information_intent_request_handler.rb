@@ -32,6 +32,7 @@ module Handlers
           title: "#{item}",
           content: message
         },
+        reprompt: 'Is there anything else I can help you with?',
         end_session: false
       )
     end

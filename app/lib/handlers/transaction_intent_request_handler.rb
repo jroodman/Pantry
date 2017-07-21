@@ -51,6 +51,7 @@ module Handlers
           title: 'Added Items',
           content: Helpers::HandlerHelper.prepare_items_for_card_without_date(categorized_items)
         },
+        reprompt: 'Is there anything else I can help you with?',
         end_session: true
       )
     end
@@ -78,6 +79,7 @@ module Handlers
           title: 'Removed Items',
           content: Helpers::HandlerHelper.prepare_removed_items_for_card(removed_items)
         },
+        reprompt: 'Is there anything else I can help you with?',
         end_session: true
       )
     end
