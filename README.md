@@ -1,6 +1,6 @@
 # Pantry Keeper
 
-A custom Amazon Alexa skill powered by a custom Ruby on Rails application. Pantry Keeper provides a modern, state-of-the-art solution to keeping track of grocery items and how long they will last. With ongoing development, Pantry Keeper has the potential to more new and innovative services to its end-users in the realms of food safety, food storage, and cooking.
+A custom Amazon Alexa skill powered by a custom Ruby on Rails application. Pantry Keeper provides a modern, state-of-the-art solution to keeping track of grocery items and how long they will last. With ongoing development, Pantry Keeper has the potential to add more new and innovative services to its end-users in the realms of food safety, food storage, and cooking.
 
 ### Table of Contents
 
@@ -98,7 +98,7 @@ $ bundle exec rspec
 
 ## Setup to Test Against Amazon Alexa
 
-First, create an Amazon Developer Account, create a new Alexa skill, and drag and drop `alexa_interaction_model.json` into the code editor in the Interaction Model Beta configuration tab. You can use the tools in the Test tab to test server responses by typing in specific Alexa requests. You will also be able to test the skill on any Alexa enabled device that is registered using you developer account.
+First, create an Amazon Developer Account, create a new Alexa skill, and drag and drop `alexa_interaction_model.json` into the code editor in the Interaction Model Beta configuration tab. You can use the tools in the Test tab to test server responses by typing in specific Alexa requests. You will also be able to test the skill on any Alexa enabled device that is registered using your developer account.
 
 *Note: To test the skill, you must specify a Service Endpoint in the Configuration tab. The skill must be hosted on a server or cloud platform that supports https requests. For local testing [ngrok](https://ngrok.com) is a fantastic tool.*
 
