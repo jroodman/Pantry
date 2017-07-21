@@ -32,7 +32,7 @@ RSpec.describe Helpers::CategoryHelpers::DairyCategoryHelper do
     end
   end
 
-  describe ".allWords" do
+  describe ".all_words" do
     it "returns all words associated with dairy in a set" do
       allWords = Helpers::CategoryHelpers::DairyCategoryHelper.all_words
 
