@@ -52,7 +52,7 @@ module Helpers
       end
 
       def helper_for(large_category)
-        "Helpers::#{large_category.to_s.classify}CategoryHelper".constantize
+        "Helpers::CategoryHelpers::#{large_category.to_s.classify}CategoryHelper".constantize
       end
 
     end

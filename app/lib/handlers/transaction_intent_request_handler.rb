@@ -38,11 +38,11 @@ module Handlers
 
     def process_remove_items
       Helpers::HandlerHelper.create_response(
-        message: "#{Helpers::HandlerHelper.prepare_removed_items_for_message(removed_items)} were removed",
+        message: "#{Helpers::HandlerHelper.message_for_removed_items(removed_items)} were removed",
         card: {
           type: 'Simple',
           title: 'Removed Items',
-          content: Helpers::HandlerHelper.prepare_removed_items_for_card(removed_items)
+          content: Helpers::HandlerHelper.card_for_removed_items(removed_items)
         },
         reprompt: 'Is there anything else I can help you with?',
         end_session: true
@@ -101,6 +101,19 @@ module Handlers
           hash
         end
       end
+    end
+
+    def card_for_removed_items(items)
+      list = items.map do |item|
+        item[:quantity].zero? ? "#{item[:name]} not found, 0 removed" : "#{item[:quantity]} #{item[:name]}"
+      end
+      list.empty? ? 'No items' : list.join("\n")
+    end
+
+    def message_for_removed_items(items)
+      items.map do |item|
+        "#{item[:quantity]} #{item[:name]}"
+      end.to_sentence
     end
 
   end

@@ -38,19 +38,6 @@ module Helpers
         list.empty? ? 'No items' : list.join("\n")
       end
 
-      def prepare_removed_items_for_card(items)
-        list = items.map do |item|
-          item[:quantity].zero? ? "#{item[:name]} not found, 0 removed" : "#{item[:quantity]} #{item[:name]}"
-        end
-        list.empty? ? 'No items' : list.join("\n")
-      end
-
-      def prepare_removed_items_for_message(items)
-        items.map do |item|
-          "#{item[:quantity]} #{item[:name]}"
-        end.to_sentence
-      end
-
     end
   end
 
