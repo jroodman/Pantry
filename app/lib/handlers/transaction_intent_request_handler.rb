@@ -18,13 +18,39 @@ module Handlers
 
     def get_intent_specific_method(intent_name)
       {
-        'Add'        => :add_items,
-        'Remove'     => :remove_items,
+        'Add'        => :process_add_items,
+        'Remove'     => :process_remove_items,
       }[intent_name]
     end
 
-    def add_items
-      categorized_items = items.reject{ |k,v| v <= 0 }.map do |k,v|
+    def process_add_items
+      Helpers::HandlerHelper.create_response(
+        message: 'Items successfully added',
+        card: {
+          type: 'Simple',
+          title: 'Added Items',
+          content: Helpers::HandlerHelper.prepare_items_for_card_without_date(added_items)
+        },
+        reprompt: 'Is there anything else I can help you with?',
+        end_session: true
+      )
+    end
+
+    def process_remove_items
+      Helpers::HandlerHelper.create_response(
+        message: "#{Helpers::HandlerHelper.prepare_removed_items_for_message(removed_items)} were removed",
+        card: {
+          type: 'Simple',
+          title: 'Removed Items',
+          content: Helpers::HandlerHelper.prepare_removed_items_for_card(removed_items)
+        },
+        reprompt: 'Is there anything else I can help you with?',
+        end_session: true
+      )
+    end
+
+    def added_items
+      items.reject{ |k,v| v <= 0 }.map do |k,v|
         details = Helpers::CategoryHelper.categorize k
         item = Item.new(
           name: k,
@@ -44,20 +70,10 @@ module Handlers
         item.save
         item
       end
-      Helpers::HandlerHelper.create_response(
-        message: 'Items successfully added',
-        card: {
-          type: 'Simple',
-          title: 'Added Items',
-          content: Helpers::HandlerHelper.prepare_items_for_card_without_date(categorized_items)
-        },
-        reprompt: 'Is there anything else I can help you with?',
-        end_session: true
-      )
     end
 
-    def remove_items
-      removed_items = items.map do |k,v|
+    def removed_items
+      items.map do |k,v|
         item = Item.owned_by(user_id).where(name: k).order(:created_at).first
         item_meta = {name: k, quantity: v}
         while item.present? && v > 0 do
@@ -72,16 +88,6 @@ module Handlers
         item.save if item.present?
         item_meta
       end
-      Helpers::HandlerHelper.create_response(
-        message: "#{Helpers::HandlerHelper.prepare_removed_items_for_message(removed_items)} were removed",
-        card: {
-          type: 'Simple',
-          title: 'Removed Items',
-          content: Helpers::HandlerHelper.prepare_removed_items_for_card(removed_items)
-        },
-        reprompt: 'Is there anything else I can help you with?',
-        end_session: true
-      )
     end
 
     def get_items_from_slots
