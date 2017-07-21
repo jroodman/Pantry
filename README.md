@@ -10,7 +10,8 @@ A custom Amazon Alexa skill powered by a custom Ruby on Rails application. Pantr
 4. [Start the Database](#start-the-database)
 5. [Start the Server](#start-the-server)
 6. [Running Tests](#running-tests)
-7. [Continuous Integration](continuous-integration)
+7. [Setup to Test Against Amazon Alexa](setup-to-test-against-amazon-alexa)
+8. [Getting Your Changes Deployed](getting-your-changes-deployed)
 
 ## Get the Repo
 
@@ -95,7 +96,7 @@ Now the application will be available at `localhost:3000`
 $ bundle exec rspec
 ```
 
-# Setup to Test Against Amazon Alexa
+## Setup to Test Against Amazon Alexa
 
 First, create an Amazon Developer Account, create a new Alexa skill, and drag and drop `alexa_interaction_model.json` into the code editor in the Interaction Model Beta configuration tab. You can use the tools in the Test tab to test server responses by typing in specific Alexa requests. You will also be able to test the skill on any Alexa enabled device that is registered using you developer account.
 
