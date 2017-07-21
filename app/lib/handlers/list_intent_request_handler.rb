@@ -10,14 +10,14 @@ module Handlers
 
     def get_intent_specific_method(intent_name)
       {
-        'Warning'       => :list_warning_items,
-        'Expired'       => :list_expired_items,
-        'FromCategory'  => :list_items_from_category,
-        'AllItems'      => :list_all_items
+        'FromCategory'  => :process_from_category,
+        'AllItems'      => :process_all_items,
+        'Warning'       => :process_warning,
+        'Expired'       => :process_expired
       }[intent_name]
     end
 
-    def list_items_from_category
+    def process_from_category
       category = intent['slots']['category']['value'].downcase.to_sym
       if Helpers::CategoryHelper.large_categories.include? category
         items = prepare_item_list_by_category category
@@ -40,7 +40,7 @@ module Handlers
       end
     end
 
-    def list_all_items
+    def process_all_items
       items = Helpers::CategoryHelper.large_categories.reduce([]) do |array, category|
         array += prepare_item_list_by_category category
       end
@@ -56,7 +56,7 @@ module Handlers
       )
     end
 
-    def list_warning_items
+    def process_warning
       items = Item.owned_by(user_id).before_expiration.after_warning
       Helpers::HandlerHelper.create_response(
         message: message_for_list_warning_items(items),
@@ -70,7 +70,7 @@ module Handlers
       )
     end
 
-    def list_expired_items
+    def process_expired
       items = Item.owned_by(user_id).after_expiration
       Helpers::HandlerHelper.create_response(
         message: message_for_list_expired_items(items),
@@ -88,7 +88,16 @@ module Handlers
       items = Item.owned_by(user_id).in_category(category)
     end
 
+    def combine_duplicate_items(items)
+      items.uniq.map do |item|
+        duplicates = items.select { |i| i.name == item.name }
+        quantity = duplicates.reduce(0) {|count, i| count += i.quantity }
+        item.quantity = quantity
+      end
+    end
+
     def message_for_list_items_from_category(items, category)
+      combine_duplicate_items items
       items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
       if items_for_message.blank?
         "You have no items under the category #{category.to_s}"
@@ -98,6 +107,7 @@ module Handlers
     end
 
     def message_for_all_items(items)
+      combine_duplicate_items items
       items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
       if items_for_message.blank?
         'You have no items in your Pantry'
@@ -107,6 +117,7 @@ module Handlers
     end
 
     def message_for_list_warning_items(items)
+      combine_duplicate_items items
       items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
       if items_for_message.blank?
         'Nothing is expiring soon'
@@ -116,6 +127,7 @@ module Handlers
     end
 
     def message_for_list_expired_items(items)
+      combine_duplicate_items items
       items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
       if items_for_message.blank?
         'Nothing is expired'
