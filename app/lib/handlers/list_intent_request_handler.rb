@@ -18,8 +18,8 @@ module Handlers
     end
 
     def process_all_items
-      items = Helpers::CategoryHelper.large_categories.reduce([]) do |array, category|
-        array += prepare_item_list_by_category category
+      items = Helpers::CategoryHelper.large_categories.flat_map do |category|
+        prepare_item_list_by_category category
       end
       Helpers::HandlerHelper.create_response(
         message: message_for_all_items(items),
@@ -89,10 +89,15 @@ module Handlers
     end
 
     def combine_duplicate_items(items)
-      items.uniq.map do |item|
-        duplicates = items.select { |i| i.name == item.name }
-        quantity = duplicates.reduce(0) {|count, i| count += i.quantity }
-        item.quantity = quantity
+      hash = items.reduce(Hash.new) do |hash, item|
+        quantity = hash[item.name] ? hash[item.name] + item.quantity : item.quantity
+        hash.merge(item.name => quantity)
+      end
+      hash.map do |k,v|
+        Item.new(
+          name: k,
+          quantity: v
+        )
       end
     end
 
