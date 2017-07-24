@@ -26,7 +26,7 @@ module Handlers
       if item_details[:small_category] == :other
         message = "Unable to find expiry information for #{item}"
       else
-        message = "When appropriately stored, #{item} is good for #{details[:time_til_expiration]} days"
+        message = "When appropriately stored, #{item} is good for #{item_details[:time_til_expiration]} days"
       end
     end
 
@@ -42,7 +42,7 @@ module Handlers
         end_session: false
       )
     end
-    
+
   end
 
 end
