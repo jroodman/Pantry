@@ -25,10 +25,10 @@ module Handlers
 
     def process_add_items
       Helpers::HandlerHelper.create_response(
-        message: 'Items successfully added',
+        message: "#{prepare_transaction_items_for_message(added_items)} were added",
         card: {
           type: 'Simple',
-          title: 'Added Items',
+          title: 'Added Food Items',
           content: Helpers::HandlerHelper.prepare_items_for_card_without_date(added_items)
         },
         reprompt: 'Is there anything else I can help you with?',
@@ -38,11 +38,11 @@ module Handlers
 
     def process_remove_items
       Helpers::HandlerHelper.create_response(
-        message: "#{Helpers::HandlerHelper.message_for_removed_items(removed_items)} were removed",
+        message: "#{prepare_transaction_items_for_message(removed_items)} were removed",
         card: {
           type: 'Simple',
-          title: 'Removed Items',
-          content: Helpers::HandlerHelper.card_for_removed_items(removed_items)
+          title: 'Removed Food Items',
+          content: prepare_removed_items_for_card(removed_items)
         },
         reprompt: 'Is there anything else I can help you with?',
         end_session: true
@@ -50,8 +50,8 @@ module Handlers
     end
 
     def added_items
-      categorized_items = items.reject{ |k,v| v <= 0 }.map do |k,v|
-        details = Helpers::CategoryHelper.categorize k
+      @added_items ||= items.reject{ |k,v| v <= 0 }.map do |k,v|
+         details = Helpers::CategoryHelper.categorize k
         item = Item.new(
           name: k,
           category_small: details[:small_category],
@@ -73,7 +73,7 @@ module Handlers
     end
 
     def removed_items
-      items.map do |k,v|
+      @removed_items ||= items.map do |k,v|
         item = Item.owned_by(user_id).where(name: k).order(:created_at).first
         item_meta = {name: k, quantity: v}
         while item.present? && v > 0 do
@@ -103,14 +103,14 @@ module Handlers
       end
     end
 
-    def card_for_removed_items(items)
+    def prepare_removed_items_for_card(items)
       list = items.map do |item|
         item[:quantity].zero? ? "#{item[:name]} not found, 0 removed" : "#{item[:quantity]} #{item[:name]}"
       end
       list.empty? ? 'No items' : list.join("\n")
     end
 
-    def message_for_removed_items(items)
+    def prepare_transaction_items_for_message(items)
       items.map do |item|
         "#{item[:quantity]} #{item[:name]}"
       end.to_sentence

@@ -10,11 +10,27 @@ module Handlers
 
     def get_intent_specific_method(intent_name)
       {
-        'FromCategory'  => :process_from_category,
         'AllItems'      => :process_all_items,
+        'FromCategory'  => :process_from_category,
         'Warning'       => :process_warning,
         'Expired'       => :process_expired
       }[intent_name]
+    end
+
+    def process_all_items
+      items = Helpers::CategoryHelper.large_categories.reduce([]) do |array, category|
+        array += prepare_item_list_by_category category
+      end
+      Helpers::HandlerHelper.create_response(
+        message: message_for_all_items(items),
+        card: {
+          type: 'Simple',
+          title: 'Food in your Pantry',
+          content: Helpers::HandlerHelper.prepare_items_for_card_with_date(items)
+        },
+        reprompt: 'Is there anything else I can help you with?',
+        end_session: false
+      )
     end
 
     def process_from_category
@@ -25,7 +41,7 @@ module Handlers
           message: message_for_list_items_from_category(items, category),
           card: {
             type: 'Simple',
-            title: "Items in your category #{category.to_s}",
+            title: "Food in the #{category.to_s.capitalize} Category",
             content: Helpers::HandlerHelper.prepare_items_for_card_with_date(items)
           },
           reprompt: 'Is there anything else I can help you with?',
@@ -38,22 +54,6 @@ module Handlers
           end_session: false
         )
       end
-    end
-
-    def process_all_items
-      items = Helpers::CategoryHelper.large_categories.reduce([]) do |array, category|
-        array += prepare_item_list_by_category category
-      end
-      Helpers::HandlerHelper.create_response(
-        message: message_for_all_items(items),
-        card: {
-          type: 'Simple',
-          title: 'Items in your Pantry',
-          content: Helpers::HandlerHelper.prepare_items_for_card_with_date(items)
-        },
-        reprompt: 'Is there anything else I can help you with?',
-        end_session: false
-      )
     end
 
     def process_warning
@@ -100,9 +100,9 @@ module Handlers
       combine_duplicate_items items
       items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
       if items_for_message.blank?
-        "You have no items under the category #{category.to_s}"
+        "You have no food in the category #{category.to_s}"
       else
-        "You have #{items_for_message} in the category #{category.to_s}"
+        "You have #{items_for_message}"
       end
     end
 
@@ -110,7 +110,7 @@ module Handlers
       combine_duplicate_items items
       items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
       if items_for_message.blank?
-        'You have no items in your Pantry'
+        'You have no food in your Pantry'
       else
         "You have #{items_for_message} in your pantry"
       end

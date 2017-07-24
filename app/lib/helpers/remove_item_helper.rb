@@ -31,7 +31,6 @@ module Helpers
     end
 
     def item_meta
-      binding.pry
       {
         name:     name,
         quantity: quantity_to_remove - remove_quantity

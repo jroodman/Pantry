@@ -8,7 +8,7 @@ module Handlers
 
     def process
       Helpers::HandlerHelper.create_response(
-        message: 'What can my pantry do for you?',
+        message: 'What can Pantry Keeper do for you?',
         end_session: false
       )
     end

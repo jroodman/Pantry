@@ -3,11 +3,11 @@ module Handlers
   class SessionEndedRequestHandler < RequestHandler
 
     def initialize(context)
-      # Stub
+      # No Op
     end
 
     def process
-      # Do nothing, no response to SESSION_ENDED_REQUEST
+      # No Op
     end
 
   end
