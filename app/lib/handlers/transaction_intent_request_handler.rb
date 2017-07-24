@@ -51,7 +51,7 @@ module Handlers
 
     def added_items
       @added_items ||= items.reject{ |k,v| v <= 0 }.map do |k,v|
-         details = Helpers::CategoryHelper.categorize k
+        details = Helpers::CategoryHelper.categorize k
         item = Item.new(
           name: k,
           category_small: details[:small_category],
