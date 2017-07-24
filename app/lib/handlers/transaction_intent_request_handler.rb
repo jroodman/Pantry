@@ -74,19 +74,8 @@ module Handlers
 
     def removed_items
       @removed_items ||= items.map do |k,v|
-        item = Item.owned_by(user_id).where(name: k).order(:created_at).first
-        item_meta = {name: k, quantity: v}
-        while item.present? && v > 0 do
-          v -= item.quantity
-          item.quantity = (item.quantity - v >= 0) ? item.quantity - v : 0
-          if item.quantity == 0
-            item.destroy
-            item = Item.owned_by(user_id).where(name: k).order(:created_at).first
-          end
-        end
-        item_meta[:quantity] -= v if v.positive?
-        item.save if item.present?
-        item_meta
+        remove_helper = Helpers::RemoveItemHelper.new(user_id: user_id, name: k, quantity: v)
+        remove_helper.remove!
       end
     end
 
