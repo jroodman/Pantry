@@ -32,7 +32,7 @@ module Handlers
           content: Helpers::HandlerHelper.prepare_items_for_card_without_date(added_items)
         },
         reprompt: 'Is there anything else I can help you with?',
-        end_session: true
+        end_session: false
       )
     end
 
@@ -45,7 +45,7 @@ module Handlers
           content: prepare_removed_items_for_card(removed_items)
         },
         reprompt: 'Is there anything else I can help you with?',
-        end_session: true
+        end_session: false
       )
     end
 
