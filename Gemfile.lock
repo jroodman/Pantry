@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/jroodman/alexa-rubykit.git
+  revision: b8f66f352aa2e1fe81475b44369690b55950da8c
+  branch: add_dialog
+  specs:
+    alexa_rubykit (1.3.1)
+      bundler (~> 1.7)
+      rake
+
+GIT
   remote: https://github.com/thoughtbot/shoulda-matchers.git
   revision: ead87017a6c15adce66a87dce8ee2ece91d0d27c
   branch: rails-5
@@ -48,9 +57,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    alexa_rubykit (1.3.0)
-      bundler (~> 1.7)
-      rake
     arel (8.0.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
@@ -205,7 +211,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  alexa_rubykit
+  alexa_rubykit!
   bcrypt (~> 3.1.7)
   capybara (~> 2.13)
   coffee-rails (~> 4.2)

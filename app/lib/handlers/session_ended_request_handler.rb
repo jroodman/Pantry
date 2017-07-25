@@ -1,6 +1,6 @@
 module Handlers
 
-  class SessionEndedRequestHandler < RequestHandler
+  class SessionEndedRequestHandler 
 
     def initialize(context)
       # No Op

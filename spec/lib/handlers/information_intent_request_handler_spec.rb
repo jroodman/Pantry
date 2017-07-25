@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Handlers::TransactionIntentRequestHandler do
+RSpec.describe Handlers::IntentRequestHandlers::TransactionIntentRequestHandler do
 
   describe ".process" do
 
@@ -21,7 +21,7 @@ RSpec.describe Handlers::TransactionIntentRequestHandler do
 
       let(:context) { double('Context', user_id: user.id, intent: intent) }
 
-      subject { Handlers::InformationIntentRequestHandler.new(context) }
+      subject { Handlers::IntentRequestHandlers::InformationIntentRequestHandler.new(context) }
 
       it "correctly returns an appropriate JSON response" do
         response = JSON.parse subject.process

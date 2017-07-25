@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Handlers::TransactionIntentRequestHandler do
+RSpec.describe Handlers::IntentRequestHandlers::TransactionIntentRequestHandler do
 
   describe ".process" do
 
@@ -37,7 +37,7 @@ RSpec.describe Handlers::TransactionIntentRequestHandler do
 
       let(:context) { double('Context', user_id: user.id, intent: intent) }
 
-      subject { Handlers::TransactionIntentRequestHandler.new(context) }
+      subject { Handlers::IntentRequestHandlers::TransactionIntentRequestHandler.new(context) }
 
       it "correctly returns an appropriate JSON response" do
         response = JSON.parse subject.process
@@ -81,7 +81,7 @@ RSpec.describe Handlers::TransactionIntentRequestHandler do
 
       let(:context) { double('Context', user_id: user.id, intent: intent) }
 
-      subject { Handlers::TransactionIntentRequestHandler.new(context) }
+      subject { Handlers::IntentRequestHandlers::TransactionIntentRequestHandler.new(context) }
 
       context "without any quantity of the requested item present in the database" do
 
