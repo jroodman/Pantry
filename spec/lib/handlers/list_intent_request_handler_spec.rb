@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Handlers::ListIntentRequestHandler do
+RSpec.describe Handlers::IntentRequestHandlers::ListIntentRequestHandler do
 
   describe ".process" do
 
@@ -37,7 +37,7 @@ RSpec.describe Handlers::ListIntentRequestHandler do
 
       let(:context) { double('Context', user_id: user.id, intent: intent) }
 
-      subject { Handlers::ListIntentRequestHandler.new(context) }
+      subject { Handlers::IntentRequestHandlers::ListIntentRequestHandler.new(context) }
 
       it "correctly returns an appropriate JSON response" do
         response = JSON.parse subject.process
@@ -68,7 +68,7 @@ RSpec.describe Handlers::ListIntentRequestHandler do
 
       let(:context) { double('Context', user_id: user.id, intent: intent) }
 
-      subject { Handlers::ListIntentRequestHandler.new(context) }
+      subject { Handlers::IntentRequestHandlers::ListIntentRequestHandler.new(context) }
 
       it "correctly returns an appropriate JSON response" do
         response = JSON.parse subject.process
@@ -91,7 +91,7 @@ RSpec.describe Handlers::ListIntentRequestHandler do
 
       let(:context) { double('Context', user_id: user.id, intent: intent) }
 
-      subject { Handlers::ListIntentRequestHandler.new(context) }
+      subject { Handlers::IntentRequestHandlers::ListIntentRequestHandler.new(context) }
 
       it "correctly returns an appropriate JSON response" do
         response = JSON.parse subject.process
@@ -111,7 +111,7 @@ RSpec.describe Handlers::ListIntentRequestHandler do
 
       let(:context) { double('Context', user_id: user.id, intent: intent) }
 
-      subject { Handlers::ListIntentRequestHandler.new(context) }
+      subject { Handlers::IntentRequestHandlers::ListIntentRequestHandler.new(context) }
 
       it "correctly returns an appropriate JSON response" do
         response = JSON.parse subject.process

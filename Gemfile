@@ -32,7 +32,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem "rb-fsevent", "0.9.8"
 
 # Quick back-end service for deploying applications for Amazon's Echo (Alexa)
-gem 'alexa_rubykit'
+gem 'alexa_rubykit', :git => 'https://github.com/jroodman/alexa-rubykit.git', :branch => 'add_dialog'
 
 group :development, :test do
   gem 'pry'

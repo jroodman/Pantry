@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Helpers::HandlerHelper do
 
-  describe ".create_response" do
+  describe ".create_message_response" do
     it "returns a correctly formatted response object" do
-      response = Helpers::HandlerHelper.create_response(
+      response = Helpers::HandlerHelper.create_message_response(
         message: 'This is a test response',
         card: {
           type: 'Simple',
@@ -23,6 +23,28 @@ RSpec.describe Helpers::HandlerHelper do
       expect(JSON.parse(response)['response']['card']['title']).to eq 'Title'
       expect(JSON.parse(response)['response']['card']['content']).to eq 'Content!'
       expect(JSON.parse(response)['response']['reprompt']['outputSpeech']['text']).to eq 'Sample reprompt'
+    end
+  end
+
+  describe ".create_delegate_response" do
+    it "returns a correctly formatted response object" do
+      response = Helpers::HandlerHelper.create_delegate_response(
+        intent: { "name"=>"Add",
+                  "confirmationStatus"=>"NONE",
+                  "slots"=> {
+                    "item_A"=> {
+                      "name"=>"item_A",
+                      "value"=>"5 oranges",
+                      "confirmationStatus"=>"NONE"
+                    }
+                  }
+                },
+        session_attributes: { session_attribute_key: :session_attribute_value }
+      )
+
+      expect(JSON.parse(response)['response']['directives'][0]['type']).to eq 'Dialog.Delegate'
+      expect(JSON.parse(response)['sessionAttributes']).to include('session_attribute_key' => 'session_attribute_value')
+      expect(JSON.parse(response)['response']['shouldEndSession']).to eq false
     end
   end
 

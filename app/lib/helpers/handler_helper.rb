@@ -3,7 +3,7 @@ module Helpers
   class HandlerHelper
     class << self
 
-      def create_response(session_attributes: {}, message: , card: nil, reprompt: nil, end_session: true)
+      def create_message_response(session_attributes: {}, message:, card: nil, reprompt: nil, end_session: true)
         response = AlexaRubykit::Response.new
         response.add_speech message.to_s
         session_attributes.each do |k, v|
@@ -16,6 +16,15 @@ module Helpers
           response.add_reprompt reprompt
         end
         response.build_response(end_session)
+      end
+
+      def create_delegate_response(session_attributes: {}, intent:)
+        response = AlexaRubykit::Response.new
+        session_attributes.each do |k, v|
+          response.add_session_attribute k, v
+        end
+        response.add_dialog_delegate_directive intent: intent
+        response.build_response(false)
       end
 
       def prepare_items_for_message(items)

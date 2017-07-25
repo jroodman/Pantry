@@ -1,13 +1,13 @@
 module Handlers
 
-  class LaunchRequestHandler < RequestHandler
+  class LaunchRequestHandler
 
     def initialize(context)
       # Stub
     end
 
     def process
-      Helpers::HandlerHelper.create_response(
+      Helpers::HandlerHelper.create_message_response(
         message: 'What can Pantry Keeper do for you?',
         end_session: false
       )
