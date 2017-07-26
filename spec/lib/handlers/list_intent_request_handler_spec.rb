@@ -14,6 +14,7 @@ RSpec.describe Handlers::IntentRequestHandlers::ListIntentRequestHandler do
         quantity: 5,
         warning_date: Time.now - 1500,
         expiration_date: Time.now - 1000,
+        created_at: Time.now,
         user_id: user.id
       )
     end
@@ -26,6 +27,7 @@ RSpec.describe Handlers::IntentRequestHandlers::ListIntentRequestHandler do
         quantity: 3,
         warning_date: Time.now - 1500,
         expiration_date: Time.now + 1700,
+        created_at: Time.now,
         user_id: user.id
       )
     end

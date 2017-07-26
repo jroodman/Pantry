@@ -21,6 +21,7 @@ module Handlers
         {
           'Add'        => :process_add_items,
           'Remove'     => :process_remove_items,
+          'Clear'      => :process_clear_items
         }[intent_name]
       end
 
@@ -45,6 +46,15 @@ module Handlers
             title: 'Removed Food Items',
             content: prepare_removed_items_for_card(removed_items)
           },
+          reprompt: 'Is there anything else I can help you with?',
+          end_session: false
+        )
+      end
+
+      def process_clear_items
+        Item.owned_by(user_id).delete_all
+        Helpers::HandlerHelper.create_message_response(
+          message: "All items have been removed",
           reprompt: 'Is there anything else I can help you with?',
           end_session: false
         )
