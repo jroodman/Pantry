@@ -24,6 +24,7 @@ module Handlers
       {
         'Add'           => Handlers::IntentRequestHandlers::TransactionIntentRequestHandler,
         'Remove'        => Handlers::IntentRequestHandlers::TransactionIntentRequestHandler,
+        'Clear'         => Handlers::IntentRequestHandlers::TransactionIntentRequestHandler,
         'Warning'       => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
         'Expired'       => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
         'FromCategory'  => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
