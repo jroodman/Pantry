@@ -10,6 +10,7 @@ RSpec.describe Handlers::IntentRequestHandlers::TransactionIntentRequestHandler 
       let(:intent) do
         {
           'name' => 'Add',
+          'confirmationStatus' => 'CONFIRMED',
           'slots' => {
             'item_A' => {
               'name' => 'item_A',
@@ -35,7 +36,7 @@ RSpec.describe Handlers::IntentRequestHandlers::TransactionIntentRequestHandler 
         }
       end
 
-      let(:context) { double('Context', user_id: user.id, intent: intent) }
+      let(:context) { double('Context', user_id: user.id, intent: intent, dialog_state: 'COMPLETED') }
 
       subject { Handlers::IntentRequestHandlers::TransactionIntentRequestHandler.new(context) }
 
@@ -54,6 +55,7 @@ RSpec.describe Handlers::IntentRequestHandlers::TransactionIntentRequestHandler 
       let(:intent) do
         {
           'name' => 'Remove',
+          'confirmationStatus' => 'CONFIRMED',
           'slots' => {
             'item_A' => {
               'name' => 'item_A',
@@ -79,7 +81,7 @@ RSpec.describe Handlers::IntentRequestHandlers::TransactionIntentRequestHandler 
         }
       end
 
-      let(:context) { double('Context', user_id: user.id, intent: intent) }
+      let(:context) { double('Context', user_id: user.id, intent: intent, dialog_state: 'COMPLETED') }
 
       subject { Handlers::IntentRequestHandlers::TransactionIntentRequestHandler.new(context) }
 
@@ -126,10 +128,13 @@ RSpec.describe Handlers::IntentRequestHandlers::TransactionIntentRequestHandler 
 
     context 'when initialized with a context containing a Clear Intent' do
       let(:intent) do
-        { 'name' => 'Clear' }
+        {
+          'name' => 'Clear',
+          'confirmationStatus' => 'CONFIRMED',
+        }
       end
 
-      let(:context) { double('Context', user_id: user.id, intent: intent) }
+      let(:context) { double('Context', user_id: user.id, intent: intent, dialog_state: 'COMPLETED') }
 
       subject { Handlers::IntentRequestHandlers::TransactionIntentRequestHandler.new(context) }
 
@@ -153,6 +158,31 @@ RSpec.describe Handlers::IntentRequestHandlers::TransactionIntentRequestHandler 
           expect(response['version']).to eq '1.0'
           expect(response['response']['outputSpeech']['text']).to eq 'All items have been removed'
           expect(response['response']['reprompt']['outputSpeech']['text']).to eq 'Is there anything else I can help you with?'
+        end
+
+      end
+    end
+
+    context 'when initialized with a context containg a STARTED dialog_state' do
+      let(:intent) do
+        {
+          'name' => 'Clear',
+          'confirmationStatus' => 'NONE',
+        }
+      end
+
+      let(:context) { double('Context', user_id: user.id, intent: intent, dialog_state: 'STARTED') }
+
+      subject { Handlers::IntentRequestHandlers::TransactionIntentRequestHandler.new(context) }
+
+      context "with some quantity of the requested item present in the database" do
+
+        it "correctly returns an appropriate JSON response with the Delegate.Dialog directive" do
+          response = JSON.parse subject.process
+
+          expect(response['version']).to eq '1.0'
+          expect(response['response']['directives'][0]['type']).to eq 'Dialog.Delegate'
+          expect(response['response']['directives'][0]['updatedIntent']['confirmationStatus']).to eq 'NONE'
         end
 
       end

@@ -37,7 +37,7 @@ RSpec.describe Handlers::IntentRequestHandlers::ListIntentRequestHandler do
         { 'name' => 'AllItems' }
       end
 
-      let(:context) { double('Context', user_id: user.id, intent: intent) }
+      let(:context) { double('Context', user_id: user.id, intent: intent, dialog_state: nil) }
 
       subject { Handlers::IntentRequestHandlers::ListIntentRequestHandler.new(context) }
 
@@ -68,7 +68,7 @@ RSpec.describe Handlers::IntentRequestHandlers::ListIntentRequestHandler do
         }
       end
 
-      let(:context) { double('Context', user_id: user.id, intent: intent) }
+      let(:context) { double('Context', user_id: user.id, intent: intent, dialog_state: nil) }
 
       subject { Handlers::IntentRequestHandlers::ListIntentRequestHandler.new(context) }
 
@@ -91,7 +91,7 @@ RSpec.describe Handlers::IntentRequestHandlers::ListIntentRequestHandler do
         { 'name' => 'Warning' }
       end
 
-      let(:context) { double('Context', user_id: user.id, intent: intent) }
+      let(:context) { double('Context', user_id: user.id, intent: intent, dialog_state: nil) }
 
       subject { Handlers::IntentRequestHandlers::ListIntentRequestHandler.new(context) }
 
@@ -111,7 +111,7 @@ RSpec.describe Handlers::IntentRequestHandlers::ListIntentRequestHandler do
         { 'name' => 'Expired' }
       end
 
-      let(:context) { double('Context', user_id: user.id, intent: intent) }
+      let(:context) { double('Context', user_id: user.id, intent: intent, dialog_state: nil) }
 
       subject { Handlers::IntentRequestHandlers::ListIntentRequestHandler.new(context) }
 
