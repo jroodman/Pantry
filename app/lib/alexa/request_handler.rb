@@ -10,12 +10,8 @@ module Alexa
     end
 
     def process
-      if dialog_state.nil? || dialog_state == 'COMPLETED'
         handler = handler_for(request.type).new(self)
         handler.process
-      else
-        Helpers::HandlerHelper.create_delegate_response(intent: request.intent)
-      end
     end
 
     private

@@ -1215,6 +1215,24 @@
       "samples": []
     },
     {
+      "name": "Clear",
+      "samples": [
+        "To remove all items in my pantry",
+        "To remove all items in pantry keeper",
+        "Remove all items in my pantry",
+        "Remove all items in pantry keeper",
+        "To delete all items in my pantry",
+        "To delete all items in pantry keeper",
+        "Delete all items in my pantry",
+        "Delete all items in pantry keeper",
+        "To clear all items in my pantry",
+        "To clear all items in pantry keeper",
+        "Clear all items in my pantry",
+        "Clear all items in pantry keeper"
+      ],
+      "slots": []
+    },
+    {
       "name": "Expired",
       "samples": [
         "Have any food gone bad",
@@ -4061,7 +4079,23 @@
       "variations": [
         {
           "type": "PlainText",
-          "value": "You want to add, {item_A}, {item_B}, {item_C}, {item_D}, {item_E}. Is this correct?"
+          "value": "You want to add {item_A}, {item_B}, {item_C}, {item_D}, and {item_E}. Is this correct?"
+        },
+        {
+          "type": "PlainText",
+          "value": "You want to add {item_A}, {item_B}, {item_C}, and {item_D}. Is this correct?"
+        },
+        {
+          "type": "PlainText",
+          "value": "You want to add {item_A}, {item_B}, and {item_C}. Is this correct?"
+        },
+        {
+          "type": "PlainText",
+          "value": "You want to add {item_A} and {item_B}. Is this correct?"
+        },
+        {
+          "type": "PlainText",
+          "value": "You want to add {item_A}. Is this correct?"
         }
       ]
     },
@@ -4077,13 +4111,40 @@
       ]
     },
     {
+      "id": "Confirm.Intent-Clear",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Are you sure you wish to remove all food from your pantry, This cannot be undone"
+        }
+      ]
+    },
+    {
       "id": "Confirm.Intent-Remove",
       "promptVersion": "1.0",
       "definitionVersion": "1.0",
       "variations": [
         {
           "type": "PlainText",
-          "value": "You want to remove, {item_A}, {item_B}, {item_C}, {item_D}, {item_E}. Is this correct?"
+          "value": "You want to remove {item_A}, is this correct?"
+        },
+        {
+          "type": "PlainText",
+          "value": "You want to remove {item_A} and {item_B}, is this correct?"
+        },
+        {
+          "type": "PlainText",
+          "value": "You want to remove {item_A}, {item_B}, and {item_C}, is this correct?"
+        },
+        {
+          "type": "PlainText",
+          "value": "You want to remove {item_A}, {item_B}, {item_C}, and {item_D}, is this correct?"
+        },
+        {
+          "type": "PlainText",
+          "value": "You want to remove {item_A}, {item_B}, {item_C}, {item_D}, and {item_E}, is this correct?"
         }
       ]
     },
@@ -4147,6 +4208,14 @@
             "prompts": {}
           }
         ]
+      },
+      {
+        "name": "Clear",
+        "confirmationRequired": true,
+        "prompts": {
+          "confirm": "Confirm.Intent-Clear"
+        },
+        "slots": []
       },
       {
         "name": "Remove",
