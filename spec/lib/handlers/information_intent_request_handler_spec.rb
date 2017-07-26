@@ -19,7 +19,7 @@ RSpec.describe Handlers::IntentRequestHandlers::TransactionIntentRequestHandler 
         }
       end
 
-      let(:context) { double('Context', user_id: user.id, intent: intent) }
+      let(:context) { double('Context', user_id: user.id, intent: intent, dialog_state: nil) }
 
       subject { Handlers::IntentRequestHandlers::InformationIntentRequestHandler.new(context) }
 
