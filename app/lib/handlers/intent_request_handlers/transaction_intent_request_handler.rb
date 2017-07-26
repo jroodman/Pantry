@@ -4,7 +4,16 @@ module Handlers
     class TransactionIntentRequestHandler < BaseRequestHandler
 
       def process
-        send(get_intent_specific_method(intent['name']))
+        if dialog_state.nil? || dialog_state != 'COMPLETED'
+          Helpers::HandlerHelper.create_delegate_response(intent: intent)
+        elsif intent['confirmationStatus'] == 'CONFIRMED'
+          send(get_intent_specific_method(intent['name']))
+        else
+          Helpers::HandlerHelper.create_message_response(
+            message: "Action canceled, is there anything else I can help you with?",
+            end_session: false
+          )
+        end
       end
 
       private
@@ -19,9 +28,9 @@ module Handlers
 
       def get_intent_specific_method(intent_name)
         {
-          'Add'        => :process_add_items,
-          'Remove'     => :process_remove_items,
-          'Clear'      => :process_clear_items
+          'Add'     => :process_add_items,
+          'Remove'  => :process_remove_items,
+          'Clear'   => :process_clear_items
         }[intent_name]
       end
 
@@ -78,8 +87,7 @@ module Handlers
           if details[:time_til_expiration] != 0
             item[:expiration_date] = Time.now + details[:time_til_expiration].days
           end
-          item.save
-          item
+          item.tap(&:save)
         end
       end
 
