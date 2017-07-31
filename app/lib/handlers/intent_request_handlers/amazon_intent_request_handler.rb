@@ -13,7 +13,7 @@ module Handlers
         {
           'AMAZON.HelpIntent'   => :process_help,
           'AMAZON.StopIntent'   => :process_stop,
-          'Amazon.CancelIntent' => :process_cancel
+          'AMAZON.CancelIntent' => :process_cancel
         }[intent_name]
       end
 

@@ -3,9 +3,11 @@ module Helpers
   class HandlerHelper
     class << self
 
-      def create_message_response(session_attributes: {}, message:, card: nil, reprompt: nil, end_session: true)
+      def create_message_response(session_attributes: {}, message: nil, card: nil, reprompt: nil, end_session: true)
         response = AlexaRubykit::Response.new
-        response.add_speech message.to_s
+        if message.present?
+          response.add_speech message.to_s
+        end
         session_attributes.each do |k, v|
           response.add_session_attribute k, v
         end
@@ -25,6 +27,19 @@ module Helpers
         end
         response.add_dialog_delegate_directive intent: intent
         response.build_response(false)
+      end
+
+      def combine_duplicate_items(items)
+        hash = items.reduce(Hash.new) do |hash, item|
+          quantity = hash[item.name] ? hash[item.name] + item.quantity : item.quantity
+          hash.merge(item.name => quantity)
+        end
+        hash.map do |k,v|
+          Item.new(
+            name: k,
+            quantity: v
+          )
+        end
       end
 
       def prepare_items_for_message(items)

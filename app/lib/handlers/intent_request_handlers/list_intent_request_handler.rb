@@ -42,7 +42,7 @@ module Handlers
             message: message_for_list_items_from_category(items, category),
             card: {
               type: 'Simple',
-              title: "Food in the #{category.to_s.capitalize} Category",
+              title: "Food in the category #{category.to_s.capitalize}",
               content: Helpers::HandlerHelper.prepare_items_for_card_with_date(items)
             },
             reprompt: 'Is there anything else I can help you with?',
@@ -89,22 +89,9 @@ module Handlers
         items = Item.owned_by(user_id).in_category(category)
       end
 
-      def combine_duplicate_items(items)
-        hash = items.reduce(Hash.new) do |hash, item|
-          quantity = hash[item.name] ? hash[item.name] + item.quantity : item.quantity
-          hash.merge(item.name => quantity)
-        end
-        hash.map do |k,v|
-          Item.new(
-            name: k,
-            quantity: v
-          )
-        end
-      end
-
       def message_for_list_items_from_category(items, category)
-        combine_duplicate_items items
-        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
+        items_without_duplicates = Helpers::HandlerHelper::combine_duplicate_items items
+        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items_without_duplicates
         if items_for_message.blank?
           "You have no food in the category #{category.to_s}"
         else
@@ -113,8 +100,8 @@ module Handlers
       end
 
       def message_for_all_items(items)
-        combine_duplicate_items items
-        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
+        items_without_duplicates = Helpers::HandlerHelper::combine_duplicate_items items
+        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items_without_duplicates
         if items_for_message.blank?
           'You have no food in your Pantry'
         else
@@ -123,8 +110,8 @@ module Handlers
       end
 
       def message_for_list_warning_items(items)
-        combine_duplicate_items items
-        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
+        items_without_duplicates = Helpers::HandlerHelper::combine_duplicate_items items
+        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items_without_duplicates
         if items_for_message.blank?
           'Nothing is expiring soon'
         else
@@ -133,8 +120,8 @@ module Handlers
       end
 
       def message_for_list_expired_items(items)
-        combine_duplicate_items items
-        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items
+        items_without_duplicates = Helpers::HandlerHelper::combine_duplicate_items items
+        items_for_message = Helpers::HandlerHelper.prepare_items_for_message items_without_duplicates
         if items_for_message.blank?
           'Nothing is expired'
         else

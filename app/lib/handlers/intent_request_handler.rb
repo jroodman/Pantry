@@ -30,9 +30,9 @@ module Handlers
         'FromCategory'        => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
         'AllItems'            => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
         'GetExpiration'       => Handlers::IntentRequestHandlers::InformationIntentRequestHandler,
-        'AMAZON.HelpIntent'   => Handlers::IntentRequestHandlers::AlexaIntentRequestHandler,
-        'AMAZON.CancelIntent' => Handlers::IntentRequestHandlers::AlexaIntentRequestHandler,
-        'AMAZON.StopIntent'   => Handlers::IntentRequestHandlers::AlexaIntentRequestHandler
+        'AMAZON.HelpIntent'   => Handlers::IntentRequestHandlers::AmazonIntentRequestHandler,
+        'AMAZON.CancelIntent' => Handlers::IntentRequestHandlers::AmazonIntentRequestHandler,
+        'AMAZON.StopIntent'   => Handlers::IntentRequestHandlers::AmazonIntentRequestHandler
       }[intent]
     end
 
