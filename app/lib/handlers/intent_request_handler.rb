@@ -22,14 +22,17 @@ module Handlers
 
     def handler_for(intent)
       {
-        'Add'           => Handlers::IntentRequestHandlers::TransactionIntentRequestHandler,
-        'Remove'        => Handlers::IntentRequestHandlers::TransactionIntentRequestHandler,
-        'Clear'         => Handlers::IntentRequestHandlers::TransactionIntentRequestHandler,
-        'Warning'       => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
-        'Expired'       => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
-        'FromCategory'  => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
-        'AllItems'      => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
-        'GetExpiration' => Handlers::IntentRequestHandlers::InformationIntentRequestHandler
+        'Add'                 => Handlers::IntentRequestHandlers::TransactionIntentRequestHandler,
+        'Remove'              => Handlers::IntentRequestHandlers::TransactionIntentRequestHandler,
+        'Clear'               => Handlers::IntentRequestHandlers::TransactionIntentRequestHandler,
+        'Warning'             => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
+        'Expired'             => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
+        'FromCategory'        => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
+        'AllItems'            => Handlers::IntentRequestHandlers::ListIntentRequestHandler,
+        'GetExpiration'       => Handlers::IntentRequestHandlers::InformationIntentRequestHandler,
+        'AMAZON.HelpIntent'   => Handlers::IntentRequestHandlers::AlexaIntentRequestHandler,
+        'AMAZON.CancelIntent' => Handlers::IntentRequestHandlers::AlexaIntentRequestHandler,
+        'AMAZON.StopIntent'   => Handlers::IntentRequestHandlers::AlexaIntentRequestHandler
       }[intent]
     end
 
