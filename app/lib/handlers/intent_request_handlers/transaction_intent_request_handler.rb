@@ -35,7 +35,6 @@ module Handlers
       end
 
       def process_add_items
-        binding.pry
         Helpers::HandlerHelper.create_message_response(
           message: "#{prepare_transaction_items_for_message(added_items)} were added",
           card: {

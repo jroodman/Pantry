@@ -77,7 +77,7 @@ RSpec.describe Handlers::IntentRequestHandlers::ListIntentRequestHandler do
 
         expect(response['version']).to eq '1.0'
         expect(response['response']['outputSpeech']['text']).to eq 'You have 5 oranges and 3 bananas'
-        expect(response['response']['card']['title']).to eq 'Food in the Fruit Category'
+        expect(response['response']['card']['title']).to eq 'Food in the category Fruit'
         expect(response['response']['card']['content']).to eq (
           "5 oranges added on #{Time.now.strftime("%a, %B %d")}" +
           "\n3 bananas added on #{Time.now.strftime("%a, %B %d")}"
